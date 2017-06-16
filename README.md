@@ -4,4 +4,4 @@ All the problems which I solve across various platform is uploaded in this repos
 
 CodeChef Username - vishuvish,
 SPOJ Username - vish_14,
-HackerRank - VishuVishal
+HackerRank Username- VishuVishal
