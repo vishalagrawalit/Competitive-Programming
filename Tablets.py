@@ -1,13 +1,19 @@
-test = int(input())
-lis = [0]*(test+1)
-lis[0]=0
-last = 1000000
-for i in range(1,test+1):
-    n = int(input())
-    if n>last:
-        lis[i]=lis[i-1]+1
-    else:
-        lis[i]=1
-    last = n
+test=int(input())
 
-print(sum(lis))
+a = []
+dp=[0]*(test)
+for i in range(0,test):
+    a.append(int(input()))
+dp[0]=1
+    
+for i in range(1,test):
+    if a[i]>a[i-1]:
+        dp[i]+=dp[i-1]+1
+    else:
+        dp[i]=1
+
+for j in range(test-2,-1,-1):
+    if a[j]>a[j+1] and dp[j]<=dp[j+1]:
+        dp[j]=dp[j+1]+1
+        
+print(sum(dp))
