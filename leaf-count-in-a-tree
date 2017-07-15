@@ -1,0 +1,38 @@
+#include<iostream>
+
+using namespace std;
+
+struct node{
+	int data;
+	node *left, *right;
+};
+
+node *newNode(int data){
+	node *temp = new node;
+	temp->data = data;
+	temp->left = temp->right = NULL;
+
+	return temp;
+}
+
+int LeafNodes(node *root){
+    
+	if (root==NULL) return 0;
+
+	if (root->left == NULL && root->right==NULL){
+		cout << root->data << " ";
+		return 1;
+	}
+	else{
+		return LeafNodes(root->left) + LeafNodes(root->right);
+	}
+
+}
+
+int main(){
+	node *root = newNode(1);
+	root->left = newNode(2);
+	root->right = newNode(3);
+
+	cout << "\nCount: " << LeafNodes(root);
+}

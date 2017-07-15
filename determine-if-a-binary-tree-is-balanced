@@ -1,0 +1,43 @@
+#include<iostream>
+
+using namespace std;
+
+struct node{
+	int data;
+	node *left, *right;
+};
+
+node *newNode(int data){
+	node *temp = new node;
+	temp->left = temp->right = NULL;
+	temp->data = data;
+
+	return temp;
+}
+
+bool isBalanced(node *root){
+	if (root==NULL) return 1;
+
+	else{
+	   
+	   int lheight = isBalanced(root->left);
+	   int rheight = isBalanced(root->right);
+
+	   if (lheight-rheight>=-1 || lheight-rheight<=1) return 1 && isBalanced(root->left) && isBalanced(root->right);
+	   else return 0 && isBalanced(root->left) && isBalanced(root->right);
+	}
+
+}
+
+
+int main(){
+	node *root = newNode(1);
+	root->left = newNode(2);
+	root->right = newNode(3);
+	root->left->left = newNode(4);
+    root->left->right = newNode(5);
+    root->left->left->left = newNode(8);
+
+    if (isBalanced) cout << "Yes" ;
+    else cout << "No";
+}
