@@ -1,0 +1,111 @@
+#include<iostream>
+#include<queue>
+
+using namespace std;
+
+struct node {
+	int data;
+	node  *left, *right;
+
+	bool isthreaded;
+};
+
+
+node *newNode(int data){
+	struct node* node = (struct node*)malloc(sizeof(struct node));
+
+	node->left = node->right = NULL;
+	node->data = data;
+	return node;
+}
+
+void populateQueue(node *root, std::queue <node *> *q){
+
+	if (root == NULL){
+	   return ;
+	}
+
+	if (root->left){
+	    populateQueue(root->left, q);
+	}
+	q->push(root);
+
+	if (root->right){
+	   populateQueue(root->right, q);
+	}
+
+}
+
+void createThreadedUtil(node *root, std::queue <node *> *q){
+	
+	if (root==NULL){
+	    return ;
+	}
+
+	if (root->left){
+	   createThreadedUtil(root->left, q);
+	}
+	q->pop();
+
+	if (root->right){
+	   createThreadedUtil(root->right, q);
+	}
+	else{
+	   root->right = q->front();
+	   root->isthreaded = true;
+	}
+}
+
+void createThread(node *root){
+	std::queue <node *> q;
+
+	populateQueue(root, &q);
+
+	createThreadedUtil(root, &q);
+}
+
+node *leftMost(node *root){
+
+	if (root->left==NULL){
+	   return root;
+	}
+	else{
+	   leftMost(root->left);
+	}
+}
+
+void inOrder(node *root){
+	if (root == NULL){
+	   return ;
+	}
+
+	node *curr = leftMost(root);
+
+	while (curr!=NULL){
+
+	   root = curr;
+	   cout << root->data << " ";
+
+	   if (root->isthreaded){
+	      curr = root->right;
+	   }
+	   else{
+	      curr = leftMost(root->right);
+	   }
+	}
+}
+
+int main(){
+	node *root = newNode(1);
+	root->left = newNode(2);
+	root->right = newNode(3);
+	root->left->left = newNode(4);
+	root->left->right = newNode(5);
+	root->right->left = newNode(6);
+	root->right->right = newNode(7);
+
+	createThread(root);
+
+	inOrder(root);
+	return 0;
+}

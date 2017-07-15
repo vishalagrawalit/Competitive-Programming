@@ -1,0 +1,63 @@
+#include<iostream>
+
+using namespace std;
+
+struct node{
+	int data;
+	node *left, *right;
+};
+
+node *newNode(int data){
+	node *temp = new node;
+	temp->data = data;
+	temp->left = temp->right = NULL;
+	return temp;
+}
+
+void inOrder(node *root){
+	if (root==NULL){
+	   return ;
+	}
+
+	if (root->left){
+	   inOrder(root->left);
+	}
+
+	cout << root->data << " ";
+
+	if (root->right){
+	   inOrder(root->right);
+	}
+}
+
+
+void interChange(node *root){
+	if (root==NULL){
+	   return ;
+	}
+
+	interChange(root->left);
+	interChange(root->right);
+
+	node *temp = new node;
+
+	temp = root->left;
+	root->left = root->right;
+	root->right = temp;
+}
+
+
+int main(){
+	node *root = newNode(1);
+	root->left = newNode(2);
+	root->right = newNode(3);
+	root->right->right = newNode(4);
+
+	cout << "Before InterChange : ";
+	inOrder(root);
+
+	interChange(root);
+
+	cout << "\nAfter InterChange : ";
+	inOrder(root);
+}
