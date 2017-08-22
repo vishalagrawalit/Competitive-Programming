@@ -1,0 +1,44 @@
+#include<iostream>
+
+using namespace std;
+
+struct node{
+	int data;
+	node *left, *right;
+};
+
+node *newNode(int data){
+	node *temp = new node;
+	temp->data = data;
+	temp->left = temp->right = NULL;
+
+	return temp;
+}
+
+int getHeight(node *root){
+	if (root==NULL){
+	   return 0;
+	}
+	else{
+	   int left = getHeight(root->left);
+	   int right = getHeight(root->right);
+
+	   if (left>right) return (left+1);
+	   else return (right+1);
+	}
+}
+
+int main(){
+	node *root = newNode(1);
+	root->left = newNode(2);
+	root->right = newNode(3);
+	root->left->left = newNode(4);
+	root->left->right = newNode(5);
+	root->right->left = newNode(6);
+	root->right->right = newNode(7);
+
+	cout << getHeight(root);
+
+	return 0;
+
+}
