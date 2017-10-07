@@ -25,5 +25,5 @@ def sequence(arr):
 
     return length
 
-arr = [2,5,3,7,11,8,10,13,6]
+arr = [2,5,3,7,11,8,10,13,6,75]
 print(sequence(arr))
